@@ -5,7 +5,7 @@ from .models import Issue, Event
 @admin.register(Issue)
 class IssueAdmin(admin.ModelAdmin):
     list_display = ['id', 'project', 'message', 'level', 'environment', 'count', 'first_seen', 'last_seen']
-    list_filter = ['level', 'environment', 'created_at']
+    list_filter = ['level', 'environment', 'first_seen']
     search_fields = ['message', 'fingerprint']
     readonly_fields = ['id', 'fingerprint', 'count', 'first_seen', 'last_seen']
 
