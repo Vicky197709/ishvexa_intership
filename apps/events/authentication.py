@@ -7,13 +7,13 @@ class APIKeyAuthentication(authentication.BaseAuthentication):
     """
     Custom authentication using X-API-Key header.
     """
-    
+
     def authenticate(self, request):
         api_key = request.headers.get('X-API-Key')
-        
+
         if not api_key:
-            return None
-        
+            raise AuthenticationFailed('API key is required')
+
         try:
             project = Project.objects.get(api_key=api_key)
             return (None, project)  # Return None as user, project as auth

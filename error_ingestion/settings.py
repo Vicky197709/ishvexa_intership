@@ -64,6 +64,15 @@ DATABASES = {
     }
 }
 
+# Use SQLite for local testing if PostgreSQL is not available
+if os.environ.get('USE_SQLITE', 'false') == 'true':
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
+
 CACHES = {
     'default': {
         'BACKEND': 'django_redis.cache.RedisCache',
@@ -73,6 +82,14 @@ CACHES = {
         }
     }
 }
+
+# Use local cache for testing if Redis is not available
+if os.environ.get('USE_SQLITE', 'false') == 'true':
+    CACHES = {
+        'default': {
+            'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+        }
+    }
 
 AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},

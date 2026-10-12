@@ -7,7 +7,7 @@ from django.utils.decorators import method_decorator
 from drf_spectacular.utils import extend_schema, OpenApiParameter, OpenApiTypes
 
 from .models import Event, Issue
-from .serializers import EventSerializer, IssueSerializer, IssueDetailSerializer
+from .serializers import EventSerializer, IssueSerializer, IssueDetailSerializer, EventDetailSerializer
 from .services import generate_fingerprint
 
 
@@ -15,8 +15,10 @@ from .services import generate_fingerprint
 class EventViewSet(viewsets.ViewSet):
     """
     ViewSet for handling error events.
+    Authentication is handled via project_key in request body.
     """
-    
+    authentication_classes = []  # No authentication for events endpoint
+
     @extend_schema(
         request=EventSerializer,
         responses={201: dict},

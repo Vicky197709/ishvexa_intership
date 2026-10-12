@@ -103,8 +103,8 @@ class TestIssueViewSet:
         """Test that listing issues requires authentication."""
         self.client.credentials()  # Remove credentials
         response = self.client.get('/api/v1/issues/')
-        
-        assert response.status_code == 401
+
+        assert response.status_code == 403
     
     def test_list_issues_success(self):
         """Test successful issue listing."""

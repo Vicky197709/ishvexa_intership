@@ -29,9 +29,11 @@ class TestAPIKeyAuthentication:
         request = factory.get('/api/v1/issues/')
         
         auth = APIKeyAuthentication()
-        result = auth.authenticate(request)
         
-        assert result is None
+        with pytest.raises(AuthenticationFailed) as exc_info:
+            auth.authenticate(request)
+        
+        assert str(exc_info.value) == 'API key is required'
     
     def test_invalid_api_key(self):
         """Test authentication with invalid API key."""
