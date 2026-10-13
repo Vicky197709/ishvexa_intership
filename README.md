@@ -13,7 +13,7 @@ A backend service for ingesting, storing, and grouping application error events.
 
 ## Tech Stack
 
-- **Framework**: Django 5.0 + Django REST Framework 3.14
+- **Framework**: Django 5.1.1 + Django REST Framework 3.15.2
 - **Database**: PostgreSQL 15
 - **Cache**: Redis 7
 - **API Docs**: drf-spectacular (Swagger UI + ReDoc)
@@ -69,17 +69,17 @@ cp .env.example .env
 
 3. Start services with Docker Compose:
 ```bash
-docker-compose up -d
+docker compose up -d
 ```
 
 4. Run migrations:
 ```bash
-docker-compose exec web python manage.py migrate
+docker compose exec web python manage.py migrate
 ```
 
 5. Create a project:
 ```bash
-docker-compose exec web python manage.py create_project "My App"
+docker compose exec web python manage.py create_project "My App"
 ```
 
 This will output an API key that you'll use for authentication.
@@ -96,7 +96,6 @@ Create a new error event.
 
 **Headers:**
 ```
-X-API-Key: <your-api-key>
 Content-Type: application/json
 ```
 
@@ -204,17 +203,17 @@ X-API-Key: <your-api-key>
 
 Run all tests:
 ```bash
-docker-compose exec web pytest
+docker compose exec web pytest
 ```
 
 Run specific test file:
 ```bash
-docker-compose exec web pytest tests/test_services.py
+docker compose exec web pytest tests/test_services.py
 ```
 
 Run with coverage:
 ```bash
-docker-compose exec web pytest --cov=apps --cov-report=html
+docker compose exec web pytest --cov=apps --cov-report=html
 ```
 
 ## Project Structure
@@ -258,20 +257,20 @@ docker-compose exec web pytest --cov=apps --cov-report=html
 
 ### Adding a New Project
 ```bash
-docker-compose exec web python manage.py create_project "Project Name"
+docker compose exec web python manage.py create_project "Project Name"
 ```
 
 ### Accessing Django Admin
 1. Create a superuser:
 ```bash
-docker-compose exec web python manage.py createsuperuser
+docker compose exec web python manage.py createsuperuser
 ```
 
 2. Access at: http://localhost:8000/admin/
 
 ### Viewing Logs
 ```bash
-docker-compose logs -f web
+docker compose logs -f web
 ```
 
 ## License
